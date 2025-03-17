@@ -7,3 +7,12 @@ Portions of this codebase were not written by myself.
 
 In addition, the `Map` and `Reduce` Grep methods were produced by Copilot. 
 Implementations of other methods were sometimes debugged with Copilot. 
+
+## How to run
+`cd ./main`
+`go build -buildmode=plugin ./grep.go`
+`go run ./mrcoordinator.go pg-*.txt`
+in X other terminals,
+`go run ./mrworker.go grep.so <regex-pattern>`
+### Cleanup:
+`rm -rf mr-*`
