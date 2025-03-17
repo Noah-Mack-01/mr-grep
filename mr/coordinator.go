@@ -12,7 +12,6 @@ import (
 )
 
 type Coordinator struct {
-	// Your definitions here.
 	tasks        map[int]Job       //
 	lastPinged   map[int]time.Time // task ID ->
 	currentJob   map[int]int       // job ID worker is currently working on
@@ -20,16 +19,6 @@ type Coordinator struct {
 	// startTime time.Time // for if we do backups
 	mutex   sync.Mutex
 	mapJobs int
-}
-
-// Your code here -- RPC handlers for the worker to call.
-
-// an example RPC handler.
-//
-// the RPC argument and reply types are defined in rpc.go.
-func (c *Coordinator) Example(args *ExampleArgs, reply *ExampleReply) error {
-	reply.Y = args.X + 1
-	return nil
 }
 
 // Update our coordinator state to reflect finalized task if it exists.
@@ -158,15 +147,6 @@ func MakeCoordinator(files []string, nReduce int) *Coordinator {
 	for index, file := range files {
 		c.tasks[index] = Job{InputFilePath: file, Status: "Ready", JobId: index, NReduce: nReduce, MapPartitions: len(files)}
 		index1 += 1
-		/*for i := 1; i <= nReduce; i++ {
-			newIndex := (shiftRight * nReduce) + i
-			c.tasks[newIndex] = Job{
-				InputFilePath: fmt.Sprintf("mr-%d-", index, i),
-				Status:        "Ready",
-				JobId:         newIndex,
-				NReduce:       nReduce,
-			}
-		}*/
 	}
 
 	for i := 0; i < nReduce; i++ {
@@ -179,9 +159,6 @@ func MakeCoordinator(files []string, nReduce int) *Coordinator {
 		}
 		index1 += 1
 	}
-
-	// Your code here.
-
 	c.server()
 	return &c
 }
