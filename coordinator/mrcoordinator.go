@@ -14,7 +14,7 @@ import (
 	"os"
 	"time"
 
-	"noerkrieg.com/mrgrep/mr"
+	internal "noerkrieg.com/mrgrep/internal"
 )
 
 func main() {
@@ -23,7 +23,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	m := mr.MakeCoordinator(os.Args[1:], 10)
+	m := internal.MakeCoordinator(os.Args[1:], 10)
 	for m.Done() == false {
 		time.Sleep(time.Second)
 	}

@@ -1,4 +1,4 @@
-package mr
+package internal
 
 import (
 	"encoding/json"
@@ -142,7 +142,7 @@ func Worker(mapf func(string, string) []KeyValue,
 
 // Request new task to complete
 func RequestNewWork(workerId int) (TaskResponseArgs, error) {
-	args := WorkerCallArgs{workerId}
+	args := WorkerCallArgs{WorkerId: workerId}
 	reply := TaskResponseArgs{}
 	ok := call("Coordinator.RequestNewWork", &args, &reply)
 	if ok || reply.JobType == "WAIT" {

@@ -1,4 +1,4 @@
-package mr
+package internal
 
 //
 // RPC definitions.
