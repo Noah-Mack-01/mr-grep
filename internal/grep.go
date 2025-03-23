@@ -14,7 +14,7 @@ func Reduce(key string, values []string) string {
 }
 
 // MapRegex function consumes a regex pattern and contents, producing a slice of rpcargs.KeyValue
-func Map(match string, contents string) []rpcargs.KeyValue {
+func Map(match string, contents string) []KeyValue {
 	re := regexp.MustCompile(match)
 	matches := re.FindAllString(contents, -1)
 	kva := []KeyValue{}
