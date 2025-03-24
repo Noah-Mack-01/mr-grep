@@ -25,7 +25,6 @@ func main() {
 		os.Exit(1)
 	}
 	mapf, reducef := loadPlugin(os.Args[1])
-
 	internal.Worker(mapf, reducef, os.Args[2])
 }
 

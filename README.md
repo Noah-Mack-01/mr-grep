@@ -13,6 +13,7 @@ Implementations of other methods were sometimes debugged with Copilot.
 `go build -buildmode=plugin ./grep.go`
 `go run ./mrcoordinator.go pg-*.txt`
 in X other terminals,
-`go run ./mrworker.go grep.so <regex-pattern>`
+`go run ./mrworker.gnoerkrieg.com/mrgrepo grep.so <regex-pattern>`
 ### Cleanup:
 `rm -rf mr-*`
+noerkrieg.com/mrgrep

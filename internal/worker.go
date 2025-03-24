@@ -96,12 +96,15 @@ func Worker(mapf func(string, string) []KeyValue,
 		} else {
 			intermediate := make([]KeyValue, 0)
 			format := fmt.Sprintf("mr-out-%d", taskResponse.Job.JobId)
-			ofile, err := os.CreateTemp("", format)
+			ofile, err := os.CreateTemp("../output", format)
+			if err != nil {
+				log.Fatalf("Failed to create temp file %v, error: %v", format, err)
+			}
 			for i := 0; i < taskResponse.Job.MapPartitions; i++ {
 				fileFormat := fmt.Sprintf("mr-%d-%d", taskResponse.Job.JobId, i)
 				inputFile, err := os.Open(fileFormat)
 				if err != nil {
-					log.Fatalf("Failed to open file %v", fileFormat)
+					log.Fatalf("Failed to open file %v, error: %v", fileFormat, err)
 				}
 				dec := json.NewDecoder(inputFile)
 				for {
@@ -133,7 +136,8 @@ func Worker(mapf func(string, string) []KeyValue,
 			}
 
 			ofile.Close()
-			if err = os.Rename(ofile.Name(), format); err == nil {
+			if err = os.Rename(ofile.Name(), format); err != nil {
+				log.Fatalf("Fatal error on rename of file %v error %v", ofile.Name(), err)
 			}
 			//if err = os.Remove(taskResponse.Job.InputFilePath); err == nil {	}
 		}
@@ -165,9 +169,5 @@ func call(rpcname string, args interface{}, reply interface{}) bool {
 	defer c.Close()
 
 	err = c.Call(rpcname, args, reply)
-	if err == nil {
-		return true
-	}
-
-	return false
+	return err == nil
 }
