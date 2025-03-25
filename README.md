@@ -12,4 +12,4 @@ Implementations of other methods were sometimes debugged with Copilot.
 `bash build.sh`
 `bash run.sh`
 ### Cleanup:
-`rm -rf ./output/mr-*`
+`bash cleanup.sh`
