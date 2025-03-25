@@ -43,14 +43,13 @@ func Worker(mapf func(string, string) []KeyValue,
 
 		taskResponse, err = RequestNewWork(id)
 		if taskResponse.JobType == "WAIT" {
-			time.Sleep(1000)
+			time.Sleep(500)
 			continue
 		} else if err != nil {
 			log.Fatalf("Encountered error: %v", err)
 			break
 		} else if taskResponse.JobType == "" {
-			time.Sleep(2000)
-			continue
+			break
 		}
 		id = taskResponse.Job.WorkerId
 		if taskResponse.JobType == "Map" {
@@ -143,6 +142,7 @@ func Worker(mapf func(string, string) []KeyValue,
 			//if err = os.Remove(taskResponse.Job.InputFilePath); err == nil {	}
 		}
 	}
+	time.Sleep(500) // sleep for a bit to avoid exiting before coordinator
 }
 
 // Request new task to complete
