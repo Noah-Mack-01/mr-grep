@@ -13,5 +13,4 @@ Implementations of other methods were sometimes debugged with Copilot.
 `bash run.sh`
 ### Cleanup:
 `rm -rf ./output/mr-*`
-`rm -rf ./worker/mr-*`
 noerkrieg.com/mrgrep

@@ -96,7 +96,8 @@ func Worker(mapf func(string, string) []KeyValue,
 		} else {
 			intermediate := make([]KeyValue, 0)
 			format := fmt.Sprintf("mr-out-%d", taskResponse.Job.JobId)
-			ofile, err := os.CreateTemp("../output", format)
+			ofile, err := os.CreateTemp("./output/", format)
+			log.Printf("Creating temp file %v", ofile.Name())
 			if err != nil {
 				log.Fatalf("Failed to create temp file %v, error: %v", format, err)
 			}
@@ -136,7 +137,7 @@ func Worker(mapf func(string, string) []KeyValue,
 			}
 
 			ofile.Close()
-			if err = os.Rename(ofile.Name(), format); err != nil {
+			if err = os.Rename(ofile.Name(), fmt.Sprintf("./output/%v", format)); err != nil {
 				log.Fatalf("Fatal error on rename of file %v error %v", ofile.Name(), err)
 			}
 			//if err = os.Remove(taskResponse.Job.InputFilePath); err == nil {	}
